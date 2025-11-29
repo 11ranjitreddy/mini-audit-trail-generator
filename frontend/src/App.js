@@ -5,7 +5,7 @@ function App() {
   const [versions, setVersions] = useState([]);
 
   const saveVersion = async () => {
-    await fetch("http://localhost:5000/save-version", {
+    await fetch("https://mini-audit-backend-1by8.onrender.com/save-version", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text })
@@ -15,7 +15,7 @@ function App() {
   };
 
   const fetchVersions = async () => {
-    const res = await fetch("http://localhost:5000/versions");
+    const res = await fetch("https://mini-audit-backend-1by8.onrender.com/versions");
     const data = await res.json();
     setVersions(data);
   };
@@ -27,6 +27,7 @@ function App() {
   return (
     <div style={{ padding: 30 }}>
       <h2>Mini Audit Trail Generator</h2>
+
       <textarea
         rows="7"
         style={{ width: "100%", padding: 10 }}
@@ -34,10 +35,20 @@ function App() {
         onChange={(e) => setText(e.target.value)}
         placeholder="Enter text..."
       />
-      <button onClick={saveVersion} style={{ marginTop: 15, padding: "10px 20px" }}>
+
+      <button
+        onClick={saveVersion}
+        style={{
+          marginTop: 15,
+          padding: "10px 20px",
+          cursor: "pointer"
+        }}
+      >
         Save Version
       </button>
+
       <h3 style={{ marginTop: 30 }}>Version History</h3>
+
       {versions.map((v) => (
         <div
           key={v.id}
